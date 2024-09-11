@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+
+    </style>
+</head>
+<body>
+
+<div class="container" id="formulario">
+    <h1>Formulário</h1>
+    <form id="meuFormulario">
+        <fieldset>
+            <legend>Dados pessoais</legend>
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+
+            <label for="endereco">Endereço:</label>
+            <input type="text" id="endereco" name="endereco" required>
+
+            <div class="row">
+                <div>
+                    <label for="cidade">Cidade:</label>
+                    <input type="text" id="cidade" name="cidade" required>
+                </div>
+                <div>
+                    <label for="estado">Estado:</label>
+                    <select id="estado" name="estado">
+                        <option value="SP">São Paulo</option>
+                        <option value="RJ">Rio de Janeiro</option>
+                        <option value="MG">Minas Gerais</option>
+                      
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Dados profissionais</legend>
+            <label>Natureza do Cargo:</label>
+            <div class="options">
+                <label><input type="radio" name="cargo" value="Gerência" required> Gerência</label>
+                <label><input type="radio" name="cargo" value="Financeiro"> Financeiro</label>
+                <label><input type="radio" name="cargo" value="Recepção"> Recepção</label>
+                <label><input type="radio" name="cargo" value="Administrativo"> Administrativo</label>
+                <label><input type="radio" name="cargo" value="Jurídico"> Jurídico</label>
+            </div>
+
+            <label>Área de interesse:</label>
+            <div class="options">
+                <label><input type="checkbox" name="interesse" value="Computação"> Computação</label>
+                <label><input type="checkbox" name="interesse" value="Biologia"> Biologia</label>
+                <label><input type="checkbox" name="interesse" value="Meio Ambiente"> Meio Ambiente</label>
+                <label><input type="checkbox" name="interesse" value="Engenharia"> Engenharia</label>
+                <label><input type="checkbox" name="interesse" value="História"> História</label>
+            </div>
+
+            <label for="curriculo">Mini-currículo:</label>
+            <textarea id="curriculo" name="curriculo" rows="4" required></textarea>
+        </fieldset>
+
+        <div class="buttons">
+            <input type="submit" value="Enviar">
+            <input type="reset" value="Limpar">
+        </div>
+    </form>
+</div>
+
+<div class="container" id="dadosPreenchidos" style="display: none;">
+    <h1>Dados Preenchidos</h1>
+    <p><strong>Nome:</strong> <span id="resNome"></span></p>
+    <p><strong>Endereço:</strong> <span id="resEndereco"></span></p>
+    <p><strong>Cidade:</strong> <span id="resCidade"></span></p>
+    <p><strong>Estado:</strong> <span id="resEstado"></span></p>
+    <p><strong>Cargo:</strong> <span id="resCargo"></span></p>
+    <p><strong>Áreas de Interesse:</strong> <span id="resInteresse"></span></p>
+    <p><strong>Mini-currículo:</strong></p>
+    <p id="resCurriculo"></p>
+</div>
+
+<script>
+    document.getElementById('meuFormulario').addEventListener('submit', function(event) {
+        event.preventDefault(); 
+
+       
+        var nome = document.getElementById('nome').value;
+        var endereco = document.getElementById('endereco').value;
+        var cidade = document.getElementById('cidade').value;
+        var estado = document.getElementById('estado').value;
+        var cargo = document.querySelector('input[name="cargo"]:checked').value;
+
+        var interesses = [];
+        document.querySelectorAll('input[name="interesse"]:checked').forEach(function(checkbox) {
+            interesses.push(checkbox.value);
+        });
+
+        var curriculo = document.getElementById('curriculo').value;
+
+        
+        document.getElementById('resNome').innerText = nome;
+        document.getElementById('resEndereco').innerText = endereco;
+        document.getElementById('resCidade').innerText = cidade;
+        document.getElementById('resEstado').innerText = estado;
+        document.getElementById('resCargo').innerText = cargo;
+        document.getElementById('resInteresse').innerText = interesses.join(', ');
+        document.getElementById('resCurriculo').innerText = curriculo;
+
+        
+        document.getElementById('formulario').style.display = 'none';
+        document.getElementById('dadosPreenchidos').style.display = 'block';
+    });
+</script>
+
+</body>
+</html>
